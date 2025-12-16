@@ -16,6 +16,19 @@ Ce projet génère deux ressources principales :
 1) Exécuter les notebooks dans l’ordre 01 → 05 pour produire les CSV intermédiaires et finaux.
 2) Utiliser le notebook 06 pour tester la recherche de codes NAF à partir de mots-clés simples et inspecter les résultats.
 
+## Installation & exécution locale
+- Prérequis : Python 3.10+ recommandé ; git ; accès Internet (téléchargements INSEE/ROME et modèles de phrases).
+- Option venv + pip  
+  - PowerShell : `python -m venv .venv && .\.venv\Scripts\Activate.ps1`  
+  - Unix/macOS : `python -m venv .venv && source .venv/bin/activate`  
+  - Dépendances : `pip install -r requirements.txt`
+- Option Poetry  
+  - Installer Poetry (https://python-poetry.org/docs/).  
+  - `poetry install` (crée un env isolé).  
+  - `poetry shell` pour activer l’environnement.
+- Lancer Jupyter/Lab : `jupyter lab` ou `jupyter notebook`, puis exécuter les notebooks dans l’ordre (01 → 06).
+- Les poids du modèle `sentence-transformers/all-MiniLM-L6-v2` seront téléchargés automatiquement au premier run.
+
 ## Limitations connues
 - L’association ROME → NAF repose sur la similarité de texte : elle est indicative et peut contenir des erreurs.
 - Les descriptions NAF extraites du PDF peuvent parfois inclure du bruit résiduel selon la mise en page.

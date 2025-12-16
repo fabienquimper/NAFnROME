@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "data"
+name = "NAFnROME"
 version = "0.1.0"
-description = "Local data exploration"
+description = "Avoir un fichier CSV détaillé des codes NAFS ainsi qu'un métier qui propose un code NAF pour chaque code métier ROME."
 authors = ["Fabien M."]
 readme = "README.md"
 package-mode = false
