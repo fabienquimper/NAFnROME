@@ -26,7 +26,11 @@ Ce projet génère deux ressources principales :
   - Installer Poetry (https://python-poetry.org/docs/).  
   - `poetry install` (crée un env isolé).  
   - `poetry shell` pour activer l’environnement.
-- Lancer Jupyter/Lab : `jupyter lab` ou `jupyter notebook`, puis exécuter les notebooks dans l’ordre (01 → 06).
+- Enregistrer le venv comme kernel Jupyter (à faire une seule fois) :
+  `pip install ipykernel`
+  `python -m ipykernel install --user --name=NAFnROME --display-name "Python (NAFnROME)"`
+  > **Pourquoi ?** Si Jupyter est installé sur le système (ex: `/usr/bin/jupyter`), il utilise par défaut le kernel `python3` système, pas le venv. Sans cette étape, les imports échouent (`ModuleNotFoundError`) même si les dépendances sont bien dans le venv.
+- Lancer Jupyter/Lab : `jupyter lab` ou `jupyter notebook`, puis **changer le kernel** : *Kernel → Change Kernel → "Python (NAFnROME)"*, ensuite exécuter les notebooks dans l’ordre (01 → 06).
 - Les poids du modèle `sentence-transformers/all-MiniLM-L6-v2` seront téléchargés automatiquement au premier run.
 
 ## Limitations connues
@@ -34,8 +38,30 @@ Ce projet génère deux ressources principales :
 - Les descriptions NAF extraites du PDF peuvent parfois inclure du bruit résiduel selon la mise en page.
 
 ## Sorties clés
+
+### Fichier final : `fusion_naf_rome_001_allMiniLM_L6_v2.csv`
+
+C'est le fichier principal, produit par le notebook `05`. Il regroupe codes NAF et ROME en une seule base exploitable pour la recherche et le prototypage.
+
+**Colonnes :**
+
+| Colonne | Description |
+|---|---|
+| `code_naf` | Code NAF INSEE (ex: `46.61Z`) |
+| `code_rome` | Code ROME France Travail (ex: `A1101`) |
+| `name` | Intitulé du métier ROME |
+| `desc` | Appellation détaillée avec code OGR |
+
+**Exemple de lignes :**
+
+```
+code_naf,code_rome,name,desc
+46.61Z,A1101,Conducteur / Conductrice d'engins agricoles,Chauffeur / Chauffeuse de machines agricoles (code OGR:11987) ...
+86.90A,A1101,Conducteur / Conductrice d'engins agricoles,Conducteur / Conductrice d'automoteur de récolte (code OGR:38874) ...
+```
+
+### Fichiers intermédiaires
 - `rome.csv` : métiers ROME + intitulés + appellations.
 - `naf_codes_001_desc.csv` : codes NAF avec descriptions longues INSEE.
-- `rome_with_naf_all-MiniLM-L6-v2.csv` : tentative de mapping ROME → NAF.
-- `fusion_naf_rome_001_allMiniLM_L6_v2.csv` : base commune NAF + ROME pour recherche et prototypage.
+- `rome_with_naf_all-MiniLM-L6-v2.csv` : tentative de mapping ROME → NAF (fichier intermédiaire, association indicative).
 
